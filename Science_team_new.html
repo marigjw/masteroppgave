@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <title></title>
+</head>
+<body style="background: #464B4B; text-emphasis-color: lawngreen">
+
+<div class="col-md-12">
+    <div class="header">
+        <img class="picture" src="img/Scale.png">
+        <h3 class="headerText" style="color:#66FFFF; font-family: Courier New ">Forsknings team: Overvåking av stråling</h3>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="timer">
+        <img class ="picture" src="img/clock.png">
+        <p class="time" style="color:#66FFFF; font-family: Courier New">45 min</p>
+    </div>
+</div>
+<div class="col-md-12" style="background:dimgrey; margin-top: -25px; height: 318px; margin-left: 10px; margin-right: 10px; width: 1260px; border: 3px solid grey">
+<div class="leftside col-md-4" >
+    <div class="col-md-6">
+        <img src="img/clock.png" style="height: 40px; width: 40px">
+        <p class="time" style="line-height: 4em; color: #66FFFF; font-family:Courier New">30 sek</p>
+        <button class="btn" style="margin-left: 0px; margin-top: -5px; width: 125px; height:35px; background:#464B4B; border: solid 2px #66FFFF;  font-family: Courier New; color:#66FFFF;">Start klokke</button>
+    </div>
+    <form class="form-inline" style="line-height: 11em">
+        <div class="form-group">
+            <label class="control-label" style="color: #66FFFF; font-family: Courier New; font-weight:normal !important};">Gjenomsnittlig stråling</label>
+            <br>
+            <input id="radiatonInput" type="text" class="form-control" style=" font-size: 18px; width: 120px; background: lawngreen; margin-top: -240px" value="0.01">
+            <button class="btn" style="margin-left: 5px; margin-top: -240px;width: 125px; height:35px; background: #464B4B; border: solid 2px #66FFFF; font-family: Courier New; color:#66FFFF" onclick="radiation(document.getElementById('radiatonInput').value)">Evaluer</button>
+        </div>
+    </form>
+
+</div>
+<div class="middel col-md-3">
+    <form class="form-inline" style="font-size: 14px; font-family: Courier New; color: #66FFFF; margin-top: 30px">
+        <div class="form-group">
+            <label class="control-label" style="font-weight:normal !important"> Måling 1 </label>
+            <input class="form-control"type="text" disabled style=" width: 150px; color: #66FFFF; background-color: dimgrey;" value="5.56">
+        </div>
+        <div class="form-group">
+            <label class="control-label" style="margin-top: 20px; font-weight:normal !important"> Måling 2 </label>
+            <input class="form-control" type="text" disabled style="width: 150px; margin-top: 20px; background: dimgrey">
+        </div>
+        <div class="form-group">
+            <label class="control-label" style="margin-top: 20px; font-weight:normal !important">Måling 3</label>
+            <input class="form-control" type="text" disabled style="width: 150px; margin-top: 20px; background: dimgrey">
+        </div>
+        <div class="form-group">
+            <label class="control-label" style="margin-top: 20px; font-weight:normal !important">Måling 4</label>
+            <input class="form-control" type="text" disabled style="width: 150px; margin-top: 20px; background: dimgrey">
+        </div>
+        <button type="button" class="btn btn-primary"style="margin-left: 110px; margin-top: 30px;width: 125px; height:35px; background:#464B4B; border: #66FFFF 2px solid; font-family: Courier New; color:#66FFFF">Ta prøve</button>
+    </form>
+</div>
+
+<!-- Her bør det brukes D3 eller tilsvarende for å lage en dynamisk graf og ikke bare et bilde -->
+<div class="diagram col-md-5">
+    <img src="img/radiatongraph.png" style="width: 500px; height: 300px; margin-top: 10px">
+</div>
+</div>
+
+
+
+<button class="btn" style=" margin-left:12px; background: #464B4B; border: 2px solid #66FFFF; font-family: Courier New; color:#66FFFF; width: 182px; height: 45px; margin-top: 20px; ">
+    <span class="glyphicon glyphicon-earphone" style="color: #66FFFF"></span>
+    Sikkerhets team
+</button>
+
+
+
+<div style="background: dimgrey; margin-top: 20px; margin-left: 10px; border: 3px grey solid; width: 1260px">
+    <p style="color: #66FFFF; font-family: Courier New; font-size:20px;margin-left: 30px ">Oppgave</p>
+    <p style="color: #66FFFF; font-family: Courier New; font-size:14px; margin-left: 30px">Start klokken og ta 4 målinger gjevntfordelt i løpet av de 30 sekundene</p>
+</div>
+
+
+
+</body>
+
+<script>
+    function radiation(value){
+        if(value < 4.0){
+            document.getElementById('radiatonInput').style.background = "lightgreen";
+        }
+        else if (value > 4.0 && value < 6.0){
+            document.getElementById('radiatonInput').style.background="orange";
+        }
+        else if(value > 6.0 && value < 9.99){
+            document.getElementById('radiatonInput').style.background="red";
+        }
+    }
+</script>
+</html>

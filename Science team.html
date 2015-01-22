@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/functions.js"></script>
+    <title></title>
+
+
+</head>
+<body style="background-image: url(img/bakgrunn.jpg)">
+<!--Header -->
+<div class="col-md-12">
+    <div class="header">
+    <img class="picture" src="img/logo.png" >
+        <h2 class="headerText">Under en solstorm</h2>
+    <h5 style="margin-top: -7px; margin-left: 50px; color: lightgray" ><mark style="color: #000000; background: #ffffff">Forskningsteam,</mark> Sikkerhetsteam, Astronautteam, Kommunikasjonsteam</h5>
+    <h4>Mål: Overvåke strålingsnivået, og passe på at astronauten ikke blir utsatt for skadlig stårlingsnivåer.</h4>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="timer">
+    <img class ="picture" src="img/klokke.png">
+    <p id="timeScience" class="time" ></p>
+    <script>startTimer(document.getElementById('timeScience'))</script>
+    </div>
+</div>
+
+<div class="col-md-12" style="margin-top: 0px; height: 255px; margin-left: -25px; margin-right: 10px; width: 1260px; ">
+    <!--Left Side + sounds-->
+    <div class="leftside col-md-4"style="margin-top: -25px" >
+        <div class="col-md-6" style=" margin-top: -20px">
+            <img src="img/klokke.png" style="height: 40px; width: 40px">
+            <p id="countDown" class="time" style="line-height: 4em">30 sek</p>
+            <button id="clock_btn" type="button" class="btn-primary btn" style=" margin-top: -5px; width: 125px; height: 35px" onclick="startCountDown(document.getElementById('countDown'),30)">Start klokke</button>
+            </div>
+        <div class="col-md-12" style="margin-top: 5px;line-height: 11em ">
+        <form class="form-inline" style="  margin-left: 2px; margin-top: 0px; height: 200px; "onSubmit="return false;">
+            <div class="form-group">
+                <label class="control-label"style="margin-top: -260px; height: 0">Gjenomsnittlig stråling</label>
+                <br>
+                <input id="radiatonInput" type="text" class="form-control" style=" font-size: 18px; width: 120px; background: white; margin-top: -350px" value="0" onkeydown="if (event.keyCode == 13) document.getElementById('average_radiation').click()">
+                <button id="average_radiation" type="button" class="btn-primary btn" style="margin-left: 5px; margin-top: -350px;width: 125px; height:35px;" onclick="radiation(document.getElementById('radiatonInput'))">Evaluer</button>
+                <br>
+                <label class="control-label" style="margin-top: -685px; height: 0px">Strålingsnivå i kroppen</label>
+                <br>
+                <input id="radiatonBodyInput" type="text" class="form-control" style=" font-size: 18px; width: 120px; background: white; margin-top: -780px" value="0" onkeydown="if(event.keyCode == 13) document.getElementById('body_radiation').click()">
+                <button id="body_radiation" type="button" class="btn-primary btn" style="margin-left: 5px; margin-top: -780px;width: 125px; height:35px;" onclick="radiationBody(document.getElementById('radiatonBodyInput'))">Evaluer</button>
+                <audio id="sound" onpause>
+                    <source src="Sound/135613__danielnieto7__alert.wav" type="audio/wav">
+                    Your browser does not support the element.
+                </audio>
+            </div>
+        </form>
+
+
+        </div>
+    </div>
+    <audio id="taskSound" onpause>
+        <source src="Sound/Music%20Box%20Single%20B%201%20Note.wav" type="audio/wav">
+        Your browser does not support the element.
+    </audio>
+<!--The middle part-->
+    <div class="middel col-md-3">
+       <form class="form-inline" style="font-size: 14px">
+         <div class="form-group">
+          <label class="control-label"> Måling 1 </label>
+           <input id="test1" class="form-control"type="text" disabled style=" width: 150px">
+         </div>
+         <div class="form-group">
+           <label class="control-label" style="margin-top: 20px"> Måling 2 </label>
+           <input id="test2" class="form-control" type="text" disabled style="width: 150px; margin-top: 20px">
+         </div>
+         <div class="form-group">
+             <label class="control-label" style="margin-top: 20px">Måling 3</label>
+             <input id="test3" class="form-control" type="text" disabled style="width: 150px; margin-top: 20px">
+         </div>
+         <div class="form-group">
+             <label class="control-label" style="margin-top: 20px">Måling 4</label>
+             <input id="test4" class="form-control" type="text" disabled style="width: 150px; margin-top: 20px">
+         </div>
+           <button id="sample_btn" type="button" class="btn btn-primary"style="margin-left: 127px; margin-top: 20px;" onclick="takeTests()">Ta prøve</button>
+       </form>
+    </div>
+
+<!-- Right part-->
+    <div class="diagram col-md-5" style="margin-top: -20px;background:rgba(255,255,255,0.6) ">
+        <img src="img/straaling1.png" style="width: 500px; height: 300px">
+    </div>
+</div>
+
+<button type="button" data-target="#myModal" class="btn btn-primary"  data-toggle="modal"  style="width: 200px; height: 45px;margin-left:15px; margin-top: 20px">
+  <span class="glyphicon glyphicon-earphone"></span>
+  Sikkerhetsteam
+</button>
+<!--Tasks -->
+<div class="task" style="margin-top: 10px">
+    <p style="font-size:22px;margin-left: 30px ">Oppgave</p>
+    <p id="task_Science" style="font-size:18px; margin-left: 30px">Start klokken og ta 4 målinger gjevntfordelt i løpet av de 30 sekundene.</p>
+</div>
+<!--Modal -->
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Sikkerhetsteam </h3>
+            </div>
+            <div class="modal-body">
+                <img class="center-block" src="img/astronaut-989_1280.jpg" style="height: 220px; width: 320px; border: solid grey 3px ">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger center-block" data-dismiss="modal"style="width: 200px; height: 45px;" onclick="setScienceTask()">
+                    <span class="glyphicon glyphicon-earphone"></span>
+                    Avslutt
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Sounds -->
+<audio id="geigerSound" onpause loop>
+    <source src="Sound/AOS04595_Electric_Geiger_Counter_Fast.wav" type="audio/wav">
+    Your browser does not support the element.
+</audio>
+
+</body>
+
+
+</html>

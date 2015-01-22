@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/functions.js"></script>
+    <title></title>
+</head>
+<script>
+    setInterval(function(){oksygenLeft()},10000);
+</script>
+<body style="background-image: url(img/bakgrunn.jpg)">
+<!--Header -->
+<div class="col-md-12">
+    <div class="header">
+        <img class="picture" src="img/logo.png">
+        <h2 class="headerText">Under en solstorm</h2>
+        <h5 style="margin-top: -7px; margin-left: 50px; color: lightgray" >Forskningsteam, Sikkerhetsteam, <mark style="color: #000000; background: #ffffff">Astronautteam,</mark> Kommunikasjonsteam</h5>
+        <h4>Mål: Sikkre at astronauten har det bra ved å overvåke de viktige kroppsfunksjonene pust og hjerteslag.</h4>
+
+    </div>
+
+    <div class="line"></div>
+
+    <div class="timer">
+        <img class ="picture" src="img/klokke.png">
+        <p id="timeScience" class="time"></p>
+        <script>startTimer(document.getElementById('timeScience'))</script>
+    </div>
+</div>
+<!--Left Half -->
+<div class="col-md-7" style="height: 300px; width: 626px; margin-left: 15px; margin-top: -30px">
+    <p class="underTitle">Pust</p>
+    <br>
+<div class="col-md-3" style="margin-left: -15px">
+    <img style="height: 40px; width: 40px;" src="img/klokke.png">
+    <p id="pustCountDown"class="time" style="line-height: 4em">15 sek</p>
+    <button class="btn-primary btn" style=" margin-top: -5px; width: 120px" onclick="startCountDown(document.getElementById('pustCountDown'),15)"> Start klokke </button>
+</div>
+    <img style="width: 390px; height:100px; margin-left: 20px; border: 2px solid lightgray" src="img/respiration.jpg">
+
+    <br>
+
+    <form class="form-inline" style="font-size: 14px; margin-top: 30px; margin-bottom: 30px"onSubmit="return false;">
+        <div class="form-group">
+            <label class="control-label">% O2 forbruk 60sek</label>
+            <input id="o2Used" class="form-control" type="text" value="0" style="width: 75px; font-size: 16px; background: white; margin-left: 18px" onkeydown="if(event.keyCode == 13) document.getElementById('respiratipon').click()">
+            <audio id="sound" onpause>
+                <source src="Sound/135613__danielnieto7__alert.wav" type="audio/wav">
+                Your browser does not support the element.
+            </audio>
+            <button id="respiratipon" class="btn btn-primary " style="margin-left: 5px" type="button" onclick="respiration(document.getElementById('o2Used').value)">Evaluer</button>
+           <label class="control-label" style="margin-left:80px">% O2 igjen</label>
+           <input id="oksygenLeft" value="" class="form-control" type="text" style=" width: 75px; font-size: 16px;" disabled>
+        </div>
+
+    </form>
+</div>
+<!--Right Half -->
+<div class="col-md-6"style="  height: 300px;  width: 626px; margin-left: 13px; margin-top: -30px">
+
+    <p class="underTitle" style="margin-left: 20px">Hjerteslag</p>
+    <br>
+    <div class="col-md-3">
+        <img style="height: 40px; width: 40px;" src="img/klokke.png">
+        <p id="heartCountDown" class="time"style="line-height: 4em">10 sek</p>
+        <button class="btn-primary btn" style="margin-left: 0px; margin-top: -5px; width: 120px "onclick="startCountDown(document.getElementById('heartCountDown'), 10)"> Start klokke </button>
+    </div>
+    <img style="width: 390px; height:100px; margin-left: 20px; border: 2px solid lightgray" src="img/ekg.jpg">
+    <br>
+    <form class="form-inline" style="font-size: 14px; margin-top: 30px; margin-bottom: 30px; margin-left: 20px"onSubmit="return false;">
+        <div class="form-group">
+           <label class="control-label" style="margin-right: 18px">slag per minutt</label>
+            <input id="heart" class="form-control" type="text" style="width: 75px; font-size: 16px; background:white" value="0" onkeydown="if(event.keyCode == 13) document.getElementById('heartRate_btn').click()">
+            <button id="heartRate_btn" class="btn btn-primary" style="margin-left: 5px"type="button" onclick="heartRate(document.getElementById('heart').value)">Evaluer</button>
+        </div>
+    </form>
+</div>
+
+
+    <button class="btn-primary btn"  type="button" data-toggle="modal" data-target="#secModal" style="margin-top: -5px;margin-left: 15px; width: 200px; height: 45px;">
+        <span class="glyphicon glyphicon-earphone"></span>
+        Kommunikasjons teamet
+    </button>
+
+<!--buttom task tabs -->
+<div class="task" style="margin-top: 15px">
+    <p style="font-size:22px;margin-left: 30px ">Oppgave</p>
+    <p id="task_astro" style="font-size:18px; margin-left: 30px">Start klokken, og tell antall innpust (topper) på pustegrafen.</p>
+</div>
+
+
+<!--Modal -->
+<div id="secModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Kommunikasjons team </h3>
+            </div>
+            <div class="modal-body">
+                <img class="center-block" src="img/astronaut-989_1280.jpg" style="height: 220px; width: 320px; border: solid grey 3px ">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger center-block" data-dismiss="modal"style="width: 200px; height: 45px;" onclick="setAstroTask()">
+                    <span class="glyphicon glyphicon-earphone"></span>
+                    Avslutt
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Sounds -->
+<audio id="breathSound" onpause loop>
+    <source src="Sound/FEMALE%20GASPS%203.wav" type="audio/wav">
+    Your browser does not support the element.
+</audio>
+<audio id="heartSound" onpause loop>
+    <source src="Sound/Heart%20rate%20monitor%20or%20EKG%20beeps%20at%20700%20milliseconds%20steady.wav" type="audio/wav">
+    Your browser does not support the element.
+</audio>
+<audio id="taskAstroSound" onpause>
+    <source src="Sound/Music%20Box%20Single%20B%201%20Note.wav" type="audio/wav">
+    Your browser does not support the element.
+</audio>
+
+</body>
+</html>

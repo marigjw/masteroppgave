@@ -1,0 +1,84 @@
+<SCIENCETEAM>
+    <TEST>
+        <VALUE>43</VALUE>
+        <VALUE>26</VALUE>
+        <VALUE>70</VALUE>
+        <VALUE>91</VALUE>
+    </TEST>
+
+    <RADIATION>
+        <VALUE>41</VALUE>
+        <VALUE>76</VALUE>
+    </RADIATION>
+
+    <RADBODY>
+        <VALUE>50</VALUE>
+        <VALUE>75</VALUE>
+    </RADBODY>
+
+
+
+
+    <PICTURE>
+        <URL>img/Oksygentank_100%25.png</URL>
+        <URL>img/Oksygentank_80%25.png</URL>
+        <URL>img/Oksygentank_65%25.png</URL>
+        <URL>img/Oksygentank_50%25.png</URL>
+        <URL>img/Oksygentank_33%25.png</URL>
+        <URL>img/Oksygentank_20%25.png</URL>
+        <URL>img/Oksygentank_5%25.png</URL>
+        <URL>img/Oksygentank_0%25.png</URL>
+    </PICTURE>
+
+    <RESPIRATION>
+        <VALUE>0.75</VALUE>
+    </RESPIRATION>
+
+    <HEART>
+        <VALUE>90.0</VALUE>
+        <VALUE>120.0</VALUE>
+    </HEART>
+
+    <OKSYGENLEFT>
+        <VALUE>100%</VALUE>
+        <VALUE>80%</VALUE>
+        <VALUE>65%</VALUE>
+        <VALUE>50%</VALUE>
+        <VALUE>33%</VALUE>
+        <VALUE>20%</VALUE>
+        <VALUE>5%</VALUE>
+        <VALUE>0%</VALUE>
+    </OKSYGENLEFT>
+
+   <SATELITT>
+       <VALUE>-280px</VALUE>
+       <VALUE>-280px</VALUE>
+       <VALUE>-250px</VALUE>
+       <VALUE>-180px</VALUE>
+       <VALUE>-100px</VALUE>
+       <VALUE>-50px</VALUE>
+       <VALUE>-20px</VALUE>
+       <VALUE>0px</VALUE>
+       <VALUE>50px</VALUE>
+       <VALUE>100px</VALUE>
+       <VALUE>180px</VALUE>
+   </SATELITT>
+
+    <FREKVENS>
+        <VALUE>2.3 - 2.9 GHz</VALUE>
+        <VALUE>2.3 - 2.9 GHz</VALUE>
+        <VALUE>2.6 - 3.2 GHz</VALUE>
+        <VALUE>3.8 - 4.0 GHz</VALUE>
+        <VALUE>4.5 - 7.3 GHz</VALUE>
+        <VALUE>1.7 - 2.4 GHz</VALUE>
+        <VALUE>5.3 - 7.1 GHz</VALUE>
+        <VALUE>2.6 - 3.1 GHz</VALUE>
+        <VALUE>6.1 - 8.2 GHz</VALUE>
+        <VALUE>3.9 - 4.5 GHz</VALUE>
+        <VALUE>1.1 - 3.1 GHz</VALUE>
+    </FREKVENS>
+
+
+</SCIENCETEAM>
+
+

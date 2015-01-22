@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/functions.js"></script>
+    <title></title>
+</head>
+<body style="background-image: url(img/bakgrunn.jpg)">
+<!--Header-->
+<div class="col-md-12">
+    <div class="header">
+        <img src="img/logo.png" class="picture">
+        <h2 class="headerText">Under en solstorm</h2>
+        <h5 style="margin-top: -7px; margin-left: 50px; color: lightgray" >Forskningsteam, <mark style="color: #000000; background: #ffffff">Sikkerhetsteam,</mark> Astronautteam, Kommunikasjonsteam</h5>
+        <h4>Mål: Sikkre at det er nok oksygen for å gjennomføre oppdraget, og at kommunikasjonsstatusen og
+        datakvaliteten er god</h4>
+    </div>
+    <div class="line"></div>
+    <div class="timer">
+        <img src="img/klokke.png" class="picture">
+        <p id="timeScience" class="time"></p>
+        <script>startTimer(document.getElementById('timeScience'))</script>
+    </div>
+</div>
+
+<script>
+    setInterval(function () { updateOksygenTank()}, 20000);
+</script>
+
+<!-- left half -->
+<div class="col-md-6" style="margin-top: -20px; width: 620px; margin-left: 10px; height: 320px">
+   <!-- CO2 control -->
+    <div class="col-md-6" style="height:316px; ">
+    <p class="underTitle" style="margin-left: -10px"> CO2 nivå </p>
+        <img src="img/co2-niva.png" style="width: 170px; height: 170px;" >
+        <div>
+        <div class="col-md-12">
+        <p style="text-align: left; font-size: 18px; margin-top: 30px; margin-left: -20px"> Skrubfilter</p>
+        </div>
+        <img src="img/scrubFilter1.png" style="width:100px; height: 35px; margin-top: -65px; margin-left: 90px">
+        </div>
+    </div>
+    <!-- data & communication control -->
+    <div class="col-md-6" style="height: 285px; margin-left: -20px ">
+    <p class="underTitle">Kommunikasjon og data</p>
+        <p style="margin-top: 40px; text-align: center; font-size: 18px ">Kommunikasjons status </p>
+        <div class="col-md-9">
+    <div class="progress" style=" height: 25px;">
+        <div id="comms" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemax="100" style="width: 0%"> 0%</div>
+    </div>
+        </div>
+        <button id="comms_btn" class="btn btn-primary" style="margin-top: -5px" onclick="startTest(document.getElementById('comms'), false)">Test</button>
+
+        <p style="margin-top: 40px; text-align: center; font-size: 18px">Data kvalitet</p>
+        <div class="col-md-9">
+            <div class="progress" style="width: 100%; height: 25px;">
+                <div id="data" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemax="100" style="width: 0%"> 0%</div>
+            </div>
+        </div>
+        <button id="data_btn" class="btn btn-primary" style="margin-top: -5px" onclick="startTest(document.getElementById('data'), true)">Test</button>
+
+    </div>
+</div>
+<!-- right half -->
+<div class="col-md-6" style="margin-top: -20px; height: 320px; margin-left: 10px;">
+<div style="margin-left: 50px">
+    <p class="underTitle">Oksygen overvåking</p>
+    <form class="col-md-4 form-inline" style="margin-top: 5px; "onSubmit="return false;">
+        <div class="form-group">
+            <label class="control-label">%Oksygen igjen</label>
+            <br>
+            <input id="oksygenIgjen" class="form-control" type="text" style="font-size: 16px; width: 75px;" value="100" onkeydown="if(event.keyCode == 13) document.getElementById('sendOxygenInfo').click()">
+            <button id="sendOxygenInfo" class="btn btn-primary"  type="button" style="margin-left: 5px; width: 70px" >Send</button>
+
+            <label class="control-label" style="margin-top: 20px">% Oksygen forbruk pr minutt</label>
+            <br>
+            <input id="oksygenForbruk" class="form-control" type="text" style="font-size: 16px; width: 75px;" value="0.5%">
+
+            <label class="control-label" style="margin-top: 20px">Min igjen med oksygen</label>
+            <br>
+            <input id="oksygenTime" class="form-control" type="text" style="font-size: 16px; width: 75px;  background: white;" value="0"onkeydown="if(event.keyCode == 13) document.getElementById('timeOxygenLeft').click()">
+            <button id="timeOxygenLeft" class="btn btn-primary" type="button" style="margin-left:5px" onclick="timeLeft()">Evaluer</button>
+        </div>
+    </form>
+
+    <div class="col-md-8" style="margin-top:0px;">
+        <form class="form-inline">
+            <img id="oksygentank" src="img/Oksygentank_65%25.png" style="width: 210px; height: 300px; margin-top: -30px; margin-left: 80px">
+            <br>
+        <h4 style="width: 110px;; margin-left: 150px; background:  rgba(255,255,255,0.6);">Oksygentank</h4>
+
+
+        </form>
+    </div>
+</div>
+</div>
+
+
+    <button class="btn-primary btn" type="button" data-toggle="modal" data-target="#secModal" style="margin-top: -20px;margin-left: 15px; width: 200px; height: 45px;">
+        <span class="glyphicon glyphicon-earphone"></span>
+        Kommunikasjons teamet
+    </button>
+
+<!--buttom task tabs -->
+<div class="task">
+    <p style="font-size:22px;margin-left: 30px ">Oppgave</p>
+    <p id="secure_task" style="font-size:18px; margin-left: 30px">Følg med på CO2 nivået, blir verdien over 25% ta kontakt med
+    kommunikasjonsteamet og be om at skrubfilteret byttes.</p>
+</div>
+
+<script>setTimeout(function(){task2Security()},60000)</script>
+
+<!--Modal -->
+<div id="secModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Kommunikasjons team </h3>
+            </div>
+            <div class="modal-body">
+                <img class="center-block" src="img/astronaut-989_1280.jpg" style="height: 220px; width: 320px; border: solid grey 3px ">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger center-block" data-dismiss="modal"style="width: 200px; height: 45px;" onclick="setSecurityTask()">
+                    <span class="glyphicon glyphicon-earphone"></span>
+                    Avslutt
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Sounds -->
+<audio id="dataSound" onpause loop>
+    <source src="Sound/Data%20element%20communication_BLASTWAVEFX_10902.wav" type="audio/wav">
+    Your browser does not support the element.
+</audio>
+<audio id="commsSound" onpause loop>
+    <source src="Sound/Modem%20dial-%20logon%20and%20connect%201.wav" type="audio/wav">
+    Your browser does not support the element.
+</audio>
+<audio id="taskSecSound" onpause>
+    <source src="Sound/Music%20Box%20Single%20B%201%20Note.wav" type="audio/wav">
+    Your browser does not support the element.
+</audio>
+<audio id="soundRed" onpause>
+    <source src="Sound/135613__danielnieto7__alert.wav" type="audio/wav">
+    Your browser does not support the element.
+</audio>
+
+</body>
+</html>

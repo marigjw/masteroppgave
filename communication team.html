@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/functions.js"></script>
+    <title></title>
+</head>
+
+<script>
+    setInterval(function(){newSateliteValue()}, 5000);
+    setInterval(function(){newFrekvens()}, 10000);
+</script>
+
+<body style="background-image: url(img/bakgrunn.jpg)">
+<!-- Header -->
+<div class="col-md-12">
+    <div class="header">
+        <img src="img/logo.png" class="picture">
+        <h2 class="headerText">Under en solstorm</h2>
+        <h5 style="margin-top: -7px; margin-left: 50px; color: lightgray" >Forskningsteam, Sikkerhetsteam, Astronautteam, <mark style="color: #000000; background: #ffffff">Kommunikasjonsteam</mark></h5>
+        <h4>Mål:Holde kommunikasjonen oppe og kommunisere med oppdragskoordinator og astronauten.</h4>
+    </div>
+    <div class="line"></div>
+    <div class="timer">
+        <img src="img/klokke.png" class="picture">
+        <p id="timeScience" class="time"></p>
+    </div>
+    <script>startTimer(document.getElementById('timeScience'))</script>
+</div>
+<!-- Venstre halvdel(video)-->
+<div class="col-md-5" style="height: 250px;">
+    <div class="col-md-11">
+        <h3 style="text-align: center; margin-top: -30px">Alexandra Steigen</h3>
+        <img class="center-block" src="img/astronaut-989_1280.jpg" style="height: 220px; width: 320px; border: solid grey 3px "> </img>
+    </div>
+</div>
+
+<!--Høyre halvdel(signal styrke valg av satelitt) -->
+<div class="col-md-7">
+    <div class="col-md-5" style="margin-top: 10px; height: 320px">
+        <table class="table table-bordered">
+            <tr class="h4">
+                <td>
+                   Satelitt
+                </td>
+                <td>
+                    Frekvens område
+                </td>
+            </tr>
+            <tr class="info">
+                <td>
+                   Satelitt 1
+                </td>
+                <td id="satelitt1">2.3 - 2.9 GHz</td>
+            </tr>
+            <tr>
+                <td>
+                    Satelitt 2
+                </td>
+                <td id="satelitt2">2.6 - 3.2 GHz</td>
+            </tr>
+            <tr class="info">
+                <td>
+                    Sateitt 3
+                </td>
+                <td id="satelitt3">3.8 - 4.0 GHz</td>
+            </tr>
+        </table>
+
+
+    <form class="form-inline" style="margin-top:20px " onSubmit="return false;">
+        <div class="form-group">
+            <label class="control-label">Velg frekvens GHz</label>
+            <input id="frekvens" class="form-control" type="text" onkeydown="if(event.keyCode == 13) document.getElementById('connect').click()">
+            <button id = "connect" type="button" class="btn btn-primary" style="margin-left: 6px" onclick="satelitt(document.getElementById('frekvens').value)">Koble til</button>
+            <label id="satLabel" class="control-label" style="margin-top: 15px; font-size: 20px">Tilkoblet: Satelitt 1</label>
+        </div>
+    </form>
+    </div>
+
+    <audio id="sound" onpause>
+        <source src="Sound/135613__danielnieto7__alert.wav" type="audio/wav">
+        Your browser does not support the element.
+    </audio>
+
+    <div class="col-md-7">
+        <form role="form">
+        <div class="col-md-3 radio" style="margin-top: -5px">
+            <img id="satelit_1" src="img/marker1.jpg" class="marker" style="margin-top: -180px">
+            <img src="img/signal_stamme1.png" class="signal" >
+            <br>
+            <input type="radio" name="satelitt" style="margin-left: 23px" onclick="chooseSatelitt('sat1')">
+            <br>
+            <p>Satelitt 1</p>
+        </div>
+        <div class="col-md-3 radio">
+            <img id="satelit_2" src="img/marker1.jpg" class="marker">
+            <img src="img/signal_stamme1.png" class="signal">
+            <br>
+            <input type="radio" name="satelitt" style="margin-left: 23px" onclick="chooseSatelitt('sat2')">
+            <br>
+            <p>Satelitt 2</p>
+        </div>
+        <div class="col-md-3 radio">
+            <img id="satelit_3" src="img/marker1.jpg" class="marker" style="margin-top: 180px">
+            <img src="img/signal_stamme1.png" class="signal">
+            <br>
+            <input type="radio" name="satelitt" style="margin-left: 23px" onclick="chooseSatelitt('sat3')">
+            <br>
+            <p>Satelitt 3</p>
+        </div>
+        </form>
+    </div>
+
+</div>
+
+<button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary" style="margin-top:-100px; margin-left: 15px; width: 200px; height: 45px;">
+    <span class="glyphicon glyphicon-earphone"></span>
+    Oppdragskordinator
+</button>
+
+
+
+<!--buttom task tabs -->
+<div class="task" style="margin-top: -20px">
+    <p style="font-size:22px;margin-left: 30px ">Oppgave</p>
+    <p id="comms_task" style="font-size:18px; margin-left: 30px">Velg den satelitten med best signal.</p>
+</div>
+
+
+<!--Modal -->
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Oppdragskoordinator </h3>
+            </div>
+            <div class="modal-body">
+                <img class="center-block" src="img/astronaut-989_1280.jpg" style="height: 220px; width: 320px; border: solid grey 3px ">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger center-block" data-dismiss="modal"style="width: 200px; height: 45px;">
+                    <span class="glyphicon glyphicon-earphone"></span>
+                    Avslutt
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModalIncomming" class="modal fade">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Oppdragskoordinator </h3>
+        </div>
+        <div class="modal-body">
+            <img class="center-block" src="img/astronaut-989_1280.jpg" style="height: 220px; width: 320px; border: solid grey 3px ">
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success center-block" data-dismiss="modal" style="width: 200px; height: 45px;" onclick="$('#myModal').modal('show');">
+                <span class="glyphicon glyphicon-earphone"></span>
+                Svar
+            </button>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>$(document).ready(function() {
+    setTimeout(function() {
+        $('#myModalIncomming').modal('show');
+    }, 30000); 
+});</script>
+<!--Sounds -->
+<audio id="satelliteSound" onpause>
+    <source src="Sound/Sound%20design%20multimedia%20accent%20satellite%20track%2003_SFXBible_ss03783.wav" type="audio/wav">
+    Your browser does not support the element.
+</audio>
+<audio id="taskCommsSound" onpause>
+    <source src="Sound/Music%20Box%20Single%20B%201%20Note.wav" type="audio/wav">
+    Your browser does not support the element.
+</audio>
+
+</body>
+</html>

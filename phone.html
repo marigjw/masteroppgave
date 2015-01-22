@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example of Twitter Bootstrap 3 Modals</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#myModal").modal('show');
+        });
+    </script>
+</head>
+
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Team navn</h3>
+            </div>
+            <div class="modal-body">
+                <img class="center-block" src="img/astronaut-989_1280.jpg" style="height: 220px; width: 320px; border: solid grey 3px ">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger center-block" data-dismiss="modal"style="width: 200px; height: 45px;">
+                    <span class="glyphicon glyphicon-earphone"></span>
+                            Avslutt
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>                                		

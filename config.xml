@@ -1,9 +1,9 @@
 <SCIENCETEAM>
     <TEST>
         <VALUE>43</VALUE>
-        <VALUE>26</VALUE>
-        <VALUE>70</VALUE>
-        <VALUE>91</VALUE>
+        <VALUE>45</VALUE>
+        <VALUE>57</VALUE>
+        <VALUE>63</VALUE>
     </TEST>
 
     <RADIATION>
@@ -20,7 +20,6 @@
 
 
     <PICTURE>
-        <URL>img/Oksygentank_100%25.png</URL>
         <URL>img/Oksygentank_80%25.png</URL>
         <URL>img/Oksygentank_65%25.png</URL>
         <URL>img/Oksygentank_50%25.png</URL>
@@ -28,6 +27,7 @@
         <URL>img/Oksygentank_20%25.png</URL>
         <URL>img/Oksygentank_5%25.png</URL>
         <URL>img/Oksygentank_0%25.png</URL>
+        <URL>img/Oksygentank_100%25.png</URL>
     </PICTURE>
 
     <RESPIRATION>

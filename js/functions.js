@@ -18,32 +18,40 @@ function setTime(){
 }
 
 function timeLeft(){
-    var timeLeft = 45 - time;
-    commsCheck = false;
-    dataCheck = false;
-    oxygenCheck = true;
-    if(parseFloat(contains(document.getElementById('oksygenTime').value)) - timeLeft < 4){
-        document.getElementById('secure_task').style.color = "limeGreen";
-        document.getElementById('oksygenTime').style.backgroundColor = "indianred";
-        document.getElementById('soundRed').play();
-        document.getElementById('secure_task').style.color = "red";
-        document.getElementById('secure_task').innerHTML = "Kontakt kommunikasjonsteamet!";
-    }
+    if(document.getElementById("secure_task").innerHTML === "Regn ut hvor mange minutter oksyget som er igjen i tanken vil holde til. Hint:(%oksygen igjen / %oksygenforbruk pr min)") {
+        var timeLeft = 45 - time;
+        commsCheck = false;
+        dataCheck = false;
+        oxygenCheck = true;
+        if (parseFloat(contains(document.getElementById('oksygenTime').value)) - timeLeft < 4) {
+            document.getElementById('secure_task').style.color = "limeGreen";
+            document.getElementById('oksygenTime').style.backgroundColor = "indianred";
+            document.getElementById('soundRed').play();
+            document.getElementById('secure_task').style.color = "red";
+            document.getElementById('secure_task').innerHTML = "Kontakt kommunikasjonsteamet!";
+        }
 
-    else if(parseFloat(contains(document.getElementById('oksygenTime').value)) - timeLeft >= 4 && parseFloat(contains(document.getElementById('oksygenTime').value)) - timeLeft < 5){
-        document.getElementById('secure_task').style.color = "limegreen";
-        document.getElementById('oksygenTime').style.backgroundColor = "orange";
-        document.getElementById('taskSecSound').play();
-        setTimeout(function(){newTask('secure_task',"Følg med på CO2 nivået, blir verdien over 25% ta kontakt med kommunikasjonsteamet og be om at skrubfilteret byttes.")}, 3000);
-        document.getElementById('secure_task').innerHTML = "Følg med på CO2 nivået, blir verdien over 25% ta kontakt med kommunikasjonsteamet og be om at skrubfilteret byttes.";
-    }
-    else {
-        document.getElementById('secure_task').style.color = "limegreen";
-        document.getElementById('oksygenTime').style.backgroundColor = "limegreen";
-        document.getElementById('taskSecSound').play();
-        setTimeout(function () {
-            newTask('secure_task', "Følg med på CO2 nivået, blir verdien over 25% ta kontakt med kommunikasjonsteamet og be om at skrubfilteret byttes.")
+        else if (parseFloat(contains(document.getElementById('oksygenTime').value)) - timeLeft >= 4 && parseFloat(contains(document.getElementById('oksygenTime').value)) - timeLeft < 5) {
+            document.getElementById('secure_task').style.color = "limegreen";
+            document.getElementById('oksygenTime').style.backgroundColor = "orange";
+            document.getElementById('taskSecSound').play();
+            setTimeout(function () {
+                newTask('secure_task', "Følg med på CO2 nivået, blir verdien over 25% ta kontakt med kommunikasjonsteamet og be om at skrubfilteret byttes.")
             }, 3000);
+            document.getElementById('secure_task').innerHTML = "Følg med på CO2 nivået, blir verdien over 25% ta kontakt med kommunikasjonsteamet og be om at skrubfilteret byttes.";
+        }
+        else {
+            document.getElementById('secure_task').style.color = "limegreen";
+            document.getElementById('oksygenTime').style.backgroundColor = "limegreen";
+            document.getElementById('taskSecSound').play();
+            setTimeout(function () {
+                newTask('secure_task', "Følg med på CO2 nivået, blir verdien over 25% ta kontakt med kommunikasjonsteamet og be om at skrubfilteret byttes.")
+            }, 3000);
+        }
+    }
+    else{
+        document.getElementById("secure_task").style.color = "orange";
+        document.getElementById('soundWrongSec').play();
     }
 }
 
@@ -62,21 +70,47 @@ var totalSec = 0;
 var lastTotalSec = 0;
 
 function startCountDown(secondsLabel, totalsecNew){
-    totalSec = totalsecNew;
-    lastTotalSec = totalsecNew;
-    countOff = false;
-    seconds = secondsLabel;
-    this.timer = setInterval(setSec, 1000);
 
-    if(secondsLabel.id === 'pustCountDown'){
-        document.getElementById('breathSound').play();
-    }
-   else if(secondsLabel.id === 'heartCountDown'){
+
+
+
+    this.timer = setInterval(setSec, 1000);
+    if (secondsLabel.id === 'pustCountDown') {
+         if(document.getElementById("task_astro").innerHTML ==="Start klokken, og tell antall innpust (topper) på pustegrafen.") {
+                totalSec = totalsecNew;
+                lastTotalSec = totalsecNew;
+                countOff = false;
+                seconds = secondsLabel;
+                document.getElementById('breathSound').play();
+            }
+        else{
+             document.getElementById('task_astro').style.color = "orange";
+             document.getElementById('soundWrongAstro').play();
+            }
+}
+    else  if(secondsLabel.id === 'heartCountDown'){
+    if(document.getElementById("task_astro").innerHTML === "Start klokken og tell antall hjerteslag(spisse topper) det er i løpet av 10 sekunder."){
+        totalSec = totalsecNew;
+        lastTotalSec = totalsecNew;
+        countOff = false;
+        seconds = secondsLabel;
         document.getElementById('heartSound').play();
     }
+    else{
+        document.getElementById('task_astro').style.color = "orange";
+        document.getElementById('soundWrongAstro').play();
+    }
+}
     else if(secondsLabel.id === 'countDown'){
+        totalSec = totalsecNew;
+        lastTotalSec = totalsecNew;
+        countOff = false;
+        seconds = secondsLabel;
         document.getElementById('geigerSound').play();
     }
+
+
+
 }
 function setSec(){
     --totalSec;
@@ -101,19 +135,36 @@ function createText(val){
 
 
       if(seconds.id === 'pustCountDown' ){
-
-            document.getElementById('task_astro').style.color = "limegreen";
-            document.getElementById('breathSound').pause();
-            document.getElementById('taskAstroSound').play();
-            setTimeout(function(){newTask('task_astro',"Regn ut antall innpust astronauten vil utføre i løpet av 60sek. Hint:(60/15 x antall innpust)" )}, 3000);
-            setTimeout(function(){task3()}, 120000)
+          if(document.getElementById("task_astro").innerHTML ==="Start klokken, og tell antall innpust (topper) på pustegrafen.") {
+              document.getElementById('task_astro').style.color = "limegreen";
+              document.getElementById('breathSound').pause();
+              document.getElementById('taskAstroSound').play();
+              setTimeout(function () {
+                  newTask('task_astro', "Regn ut antall innpust astronauten vil utføre i løpet av 60sek. Hint:(60/15 x antall innpust)")
+              }, 3000);
+              setTimeout(function () {
+                  task3()
+              }, 12000);
+          }
+          else{
+              document.getElementById('task_astro').style.color = "orange";
+              document.getElementById('soundWrongAstro').play();
+          }
         }
-        else if(seconds.id === 'heartCountDown' ){
-          document.getElementById('task_astro').style.color = "limegreen";
-          document.getElementById('heartSound').pause();
-          document.getElementById('taskAstroSound').play();
-          setTimeout(function(){newTask('task_astro', "Regn ut antall hjerteslag astronauten vil ha i løpet av 60sek. Hint:(60/10 x antall hjerteslag)")}, 3000);
-        }
+        else if(seconds.id === 'heartCountDown' ) {
+          if (document.getElementById("task_astro").innerHTML === "Start klokken og tell antall hjerteslag(spisse topper) det er i løpet av 10 sekunder.") {
+              document.getElementById('task_astro').style.color = "limegreen";
+              document.getElementById('heartSound').pause();
+              document.getElementById('taskAstroSound').play();
+              setTimeout(function () {
+                  newTask('task_astro', "Regn ut antall hjerteslag astronauten vil ha i løpet av 60sek. Hint:(60/10 x antall hjerteslag)")
+              }, 3000);
+          }
+          else{
+              document.getElementById('task_astro').style.color = "orange";
+              document.getElementById('soundWrongAstro').play();
+          }
+      }
         else if(seconds.id === 'countDown' ){
           document.getElementById('geigerSound').pause();
         }
@@ -140,20 +191,56 @@ function task2Security(){
     document.getElementById('taskSecSound').play();
     setTimeout(function(){newTask('secure_task', "Test kommunikasjonstatusen til satelitten.")}, 3000);
 }
+
+function send(){
+    if(document.getElementById('secure_task').innerHTML === "Før inn %oksygen igjen og send til astronautteamet") {
+        document.getElementById('secure_task').style.color = "limegreen";
+        document.getElementById('taskSecSound').play();
+        setTimeout(function () {
+            newTask('secure_task', "Regn ut hvor mange minutter oksyget som er igjen i tanken vil holde til. Hint:(%oksygen igjen / %oksygenforbruk pr min)")
+        }, 3000);
+    }
+    else{
+        document.getElementById('secure_task').style.color = "orange";
+        document.getElementById('soundWrongSec').play();
+    }
+}
 /**setter verdier på progressbaren*/
 function startTest(valueLabel, check){
-        document.getElementById('comms_btn').disabled = true;
-        document.getElementById('data_btn').disabled = true;
-        if(valueLabel.id === 'data'){
-            document.getElementById('dataSound').play();
+
+
+        if (valueLabel.id === 'data') {
+            if(document.getElementById('secure_task').innerHTML === "Test datakvaliteten.") {
+                document.getElementById('comms_btn').disabled = true;
+                document.getElementById('data_btn').disabled = true;
+                document.getElementById('dataSound').play();
+                value = valueLabel;
+                totalValue = 0;
+                this.values = setInterval(setValue, 100);
+                ok = check;
         }
+            else{
+                document.getElementById('secure_task').style.color = "orange";
+                document.getElementById('soundWrongSec').play();
+            }
+    }
+
         else if(valueLabel.id === 'comms'){
-            document.getElementById('commsSound').play();
+            if(document.getElementById('secure_task').innerHTML === "Test kommunikasjonstatusen til satelitten.") {
+                document.getElementById('comms_btn').disabled = true;
+                document.getElementById('data_btn').disabled = true;
+                document.getElementById('commsSound').play();
+                value = valueLabel;
+                totalValue = 0;
+                this.values = setInterval(setValue, 100);
+                ok = check;
+            }
+            else{
+                document.getElementById('secure_task').style.color = "orange";
+                document.getElementById('soundWrongSec').play();
+            }
         }
-        value = valueLabel;
-        totalValue = 0;
-        this.values = setInterval(setValue, 100);
-        ok = check;
+
 }
 /**Plaseerer verdien på progressbaren*/
 function setValue(){
@@ -162,7 +249,7 @@ function setValue(){
     if(value.innerHTML === "Feilet!" || value.innerHTML === "OK!"){
         document.getElementById('dataSound').pause();
         document.getElementById('commsSound').pause();
-      setTimeout(function(){clearProgressbar()}, 20000);
+      //setTimeout(function(){clearProgressbar()}, 20000);
     }
 
 
@@ -175,12 +262,15 @@ function makeValueLabel(val){
         value.style.backgroundColor = "green";
         clearInterval(this.values);
         if(value.id === "comms"){
+            document.getElementById('comms_btn').disabled = false;
+            document.getElementById('data_btn').disabled = false;
             document.getElementById('secure_task').style.color = "limegreen";
             commsCheck = true;
             dataCheck = false;
             oxygenCheck = false;
             document.getElementById('taskSecSound').play();
             setTimeout(function(){newTask('secure_task',"Test datakvaliteten.")}, 3000);
+            setTimeout(function(){clearProgressbar(document.getElementById('comms'))}, 15000);
         }
         else if(value.id === "data"){
             document.getElementById('secure_task').style.color = "limegreen";
@@ -188,19 +278,16 @@ function makeValueLabel(val){
             dataCheck = true;
             oxygenCheck = false;
             document.getElementById('taskSecSound').play();
-            setTimeout(function(){newTask('secure_task',"Før inn %oksygen forbruk pr minutt som dere får oppgitt fra astronautteamet.")}, 3000);
-            setTimeout(function () { document.getElementById('secure_task').innerHTML = "Regn ut hvor mange minutter oksyget som er igjen i tanken vil holde til. Hint:(%oksygen igjen/%oksygenforbruk pr min)" ;}, 20000);
+            setTimeout(function(){newTask('secure_task',"Før inn %oksygen igjen og send til astronautteamet")}, 3000);
+            setTimeout(function(){clearProgressbar(document.getElementById('data'))}, 15000);
         }
         return "OK!";
     }
     else if (val === 100 && !ok){
         if(value.id === "comms"){
-            document.getElementById('secure_task').style.color = "limegreen";
             commsCheck = true;
             dataCheck = false;
             oxygenCheck = false;
-            document.getElementById('taskSecSound').play();
-            setTimeout(function(){newTask('secure_task',"Test datakvaliteten.")}, 3000);
         }
         else if(value.id === "data"){
             document.getElementById('secure_task').style.color = "limegreen";
@@ -208,8 +295,6 @@ function makeValueLabel(val){
             dataCheck = true;
             oxygenCheck = false;
             document.getElementById('taskSecSound').play();
-            setTimeout(function(){newTask('secure_task',"Før inn %oksygen forbruk pr minutt som dere får oppgitt fra astronautteamet.")}, 3000);
-            setTimeout(function () { document.getElementById('secure_task').innerHTML = "Regn ut hvor mange minutter oksyget som er igjen i tanken vil holde til. Hint:(%oksygen igjen/%oksygenforbruk pr min)" ;}, 20000);
         }
         document.getElementById('secure_task').style.color = "limegreen";
         value.style.backgroundColor = "indianred";
@@ -227,15 +312,19 @@ function makeValueLabel(val){
 /**Setter oppgaver for når sikkerhetsteamet når de avslutter en samtale.*/
 function setSecurityTask(){
     if(commsCheck){
+        document.getElementById('comms_btn').disabled = false;
+        document.getElementById('data_btn').disabled = false;
         document.getElementById('secure_task').style.color = "limegreen";
         document.getElementById('taskSecSound').play();
         setTimeout(function(){newTask('secure_task',"Test datakvaliteten.")}, 3000);
+        setTimeout(function(){clearProgressbar(document.getElementById('comms'))}, 15000);
     }
     else if(dataCheck){
+        document.getElementById('comms_btn').disabled = false;
+        document.getElementById('data_btn').disabled = false;
         document.getElementById('secure_task').style.color = "limegreen";
         document.getElementById('taskSecSound').play();
-        setTimeout(function(){newTask('secure_task',"Før inn %oksygen forbruk pr minutt som dere får oppgitt fra astronautteamet.")}, 3000);
-        setTimeout(function () { document.getElementById('secure_task').innerHTML = "Regn ut hvor mange minutter oksyget som er igjen i tanken vil holde til. Hint:(%oksygen igjen/%oksygenforbruk pr min)" ;}, 20000);
+        setTimeout(function(){clearProgressbar(document.getElementById('data'))}, 15000);
     }
     else if(oxygenCheck){
         document.getElementById('secure_task').style.color = "limegreen";
@@ -244,10 +333,10 @@ function setSecurityTask(){
     }
 }
 /**Tilbakestiller progressbarene*/
-function clearProgressbar(){
-  value.innerHTML = "0%";
-  value.style.width = (0 + "%");
-  value.style.backgroundColor = "#4286ca";
+function clearProgressbar(elem){
+  elem.innerHTML = "0%";
+  elem.style.width = (0 + "%");
+  elem.style.backgroundColor = "#4286ca";
   document.getElementById('comms_btn').disabled = false;
   document.getElementById('data_btn').disabled = false;
 
@@ -320,11 +409,20 @@ function takeTests(){
 
        }
        else if(count === 3){
-           document.getElementById('task_Science').style.color = "limegreen";
+
            test4.value = x[0].getElementsByTagName("VALUE")[count].innerHTML;
            count = 0;
-           document.getElementById('taskSound').play();
-           setTimeout(function(){newTask('task_Science',"Regn ut og evaluer gjennomsnittet av de fire målingene som ble tatt.")}, 3000);
+           if(document.getElementById('task_Science').innerHTML === "Start klokken og ta 4 målinger gjevntfordelt i løpet av de 30 sekundene.") {
+               document.getElementById('task_Science').style.color = "limegreen";
+               document.getElementById('taskSound').play();
+               setTimeout(function () {
+                   newTask('task_Science', "Regn ut og evaluer gjennomsnittet av de fire målingene som ble tatt.")
+               }, 3000);
+           }
+           else{
+               document.getElementById('task_Science').style.color =  "orange";
+               document.getElementById('soundWrongScience').play();
+           }
        }
 
 }
@@ -340,75 +438,96 @@ var radiation1 = false;
 var bodyradiation = false;
 /**Sjekker den gjennomsnitlige stårlingen*/
 function radiation(elem){
-    if(elem){
-
-    }
     radiation1 = true;
     bodyradiation = false;
     var value = contains(elem.value);
     x = xmlDoc.getElementsByTagName("RADIATION");
+    if(document.getElementById("task_Science").innerHTML === "Regn ut og evaluer gjennomsnittet av de fire målingene som ble tatt." || document.getElementById("task_Science").innerHTML === "Feil i utregningen. Regn ut og evaluer gjennomsnittet av de fire målingene som ble tatt.") {
+            if (value < parseInt(x[0].getElementsByTagName("VALUE")[0].innerHTML)) {
+                document.getElementById('task_Science').style.color = "limegreen";
+                elem.style.background = "limegreen";
+                //elem.value = value;
+                orangeNum = 0
+                document.getElementById('taskSound').play();
+                setTimeout(function () {
+                    newTask('task_Science', "Legg til 0 på det total strålingsnivået astronauten har blitt utsatt for.")
+                }, 3000);
+            }
+            else if (value >= parseInt((x[0].getElementsByTagName("VALUE")[0].innerHTML)) && value < parseInt(x[0].getElementsByTagName("VALUE")[1].innerHTML)) {
+                elem.style.background = "orange";
+                if (orangeNum === 2) {
+                    document.getElementById('sound').play();
+                    elem.style.background = "indianred";
+                    document.getElementById('task_Science').style.color = "red";
+                    document.getElementById('task_Science').innerHTML = "Kontakt sikkerhetsteamet!";
+                    orangeNum = 0;
+                }
+                else {
+                    document.getElementById('task_Science').style.color = "limegreen";
+                    orangeNum++;
+                    document.getElementById('taskSound').play();
+                    setTimeout(function () {
+                        newTask('task_Science', "Legg til 15 på det total strålingsnivået astronauten har blitt utsatt for.")
+                    }, 3000);
+                }
+            }
+            else if (value >= parseInt(x[0].getElementsByTagName("VALUE")[1].innerHTML)) {
+                elem.style.background = "indianred";
+                document.getElementById('sound').play();
+                orangeNum = 0;
+                document.getElementById('task_Science').style.color = "red";
+                document.getElementById('task_Science').innerHTML = "Kontakt sikkerhetsteamet!";
+            }
 
-    if(value < parseInt(x[0].getElementsByTagName("VALUE")[0].innerHTML)){
-        document.getElementById('task_Science').style.color = "limegreen";
-        elem.style.background = "limegreen";
-        //elem.value = value;
-        orangeNum = 0
-        document.getElementById('taskSound').play();
-        setTimeout(function(){newTask('task_Science',"Legg til 0 på det total strålingsnivået astronauten har blitt utsatt for.")}, 3000);
     }
-    else if (value >= parseInt((x[0].getElementsByTagName("VALUE")[0].innerHTML)) && value < parseInt( x[0].getElementsByTagName("VALUE")[1].innerHTML)){
-        elem.style.background="orange";
-        if(orangeNum === 2){
-            document.getElementById('sound').play();
-            elem.style.background = "indianred";
-            document.getElementById('task_Science').style.color = "red";
-            document.getElementById('task_Science').innerHTML = "Kontakt sikkerhetsteamet!";
-            orangeNum = 0;
-        }
-        else {
-            document.getElementById('task_Science').style.color = "limegreen";
-            orangeNum++;
-            document.getElementById('taskSound').play();
-            setTimeout(function(){newTask('task_Science',"Legg til 15 på det total strålingsnivået astronauten har blitt utsatt for.")}, 3000);
-        }
-    }
-    else if(value >= parseInt( x[0].getElementsByTagName("VALUE")[1].innerHTML)){
-        elem.style.background="indianred";
-        document.getElementById('sound').play();
-        orangeNum = 0;
-        document.getElementById('task_Science').style.color = "red";
-        document.getElementById('task_Science').innerHTML = "Kontakt sikkerhetsteamet!";
+    else{
+        document.getElementById('task_Science').style.color = "orange";
+        document.getElementById('soundWrongScience').play();
     }
 }
+var total = 0;
 /**Sjekker stårlingsverdien i kroppen*/
-function radiationBody(elem){
+function radiationBody(elem) {
     bodyradiation = true;
     radiation1 = false;
     x = xmlDoc.getElementsByTagName("RADBODY");
     var value = contains(elem.value);
+    if (document.getElementById("task_Science").innerHTML === "Legg til 0 på det total strålingsnivået astronauten har blitt utsatt for." || document.getElementById("task_Science").innerHTML === "Legg til 15 på det total strålingsnivået astronauten har blitt utsatt for." || document.getElementById("task_Science").innerHTML === "Legg til 50 på det total strålingsnivået astronauten har blitt utsatt for.") {
+        if (value < parseInt(x[0].getElementsByTagName("VALUE")[0].innerHTML)) {
+            document.getElementById('task_Science').style.color = "limegreen";
+            elem.style.background = "limegreen";
+            document.getElementById('taskSound').play();
+            setTimeout(function () {
+                newTask('task_Science', "Start klokken og ta 4 målinger gjevntfordelt i løpet av de 30 sekundene.")
+            }, 3000);
+        }
+        else if (value >= parseInt((x[0].getElementsByTagName("VALUE")[0].innerHTML)) && value < parseInt(x[0].getElementsByTagName("VALUE")[1].innerHTML)) {
+            document.getElementById('task_Science').style.color = "limegreen";
+            elem.style.background = "orange";
+            document.getElementById('taskSound').play();
+            setTimeout(function () {
+                newTask('task_Science', "Start klokken og ta 4 målinger gjevntfordelt i løpet av de 30 sekundene.")
+            }, 3000);
+        }
+        else if (value > parseInt(x[0].getElementsByTagName("VALUE")[1].innerHTML)) {
+            elem.style.background = "indianred";
+            document.getElementById('sound').play();
+            document.getElementById('clock_btn').disabled = true;
+            document.getElementById('average_radiation').disabled = true;
+            document.getElementById('body_radiation').disabled = true;
+            document.getElementById('sample_btn').disabled = true;
 
-    if(value < parseInt(x[0].getElementsByTagName("VALUE")[0].innerHTML)){
-        document.getElementById('task_Science').style.color = "limegreen";
-        elem.style.background = "limegreen";
-        document.getElementById('taskSound').play();
-        setTimeout(function(){newTask('task_Science',"Start klokken og ta 4 målinger gjevntfordelt i løpet av de 30 sekundene.")}, 3000);
-    }
-    else if (value > parseInt((x[0].getElementsByTagName("VALUE")[0].innerHTML)) && value < parseInt( x[0].getElementsByTagName("VALUE")[1].innerHTML)){
-        document.getElementById('task_Science').style.color = "limegreen";
-        elem.style.background = "orange";
-        document.getElementById('taskSound').play();
-        setTimeout(function(){newTask('task_Science',"Start klokken og ta 4 målinger gjevntfordelt i løpet av de 30 sekundene.")}, 3000);
-    }
-    else if(value > parseInt( x[0].getElementsByTagName("VALUE")[1].innerHTML) ){
-        elem.style.background = "indianred";
-        document.getElementById('sound').play();
-        document.getElementById('clock_btn').disabled = true;
-        document.getElementById('average_radiation').disabled = true;
-        document.getElementById('body_radiation').disabled = true;
-        document.getElementById('sample_btn').disabled = true;
+            document.getElementById('task_Science').innerHTML = "Svært farlig strålingsnivå! Meld fra til sikkerhetsteamet. oppdraget må kanskje avbrytes.";
+            document.getElementById('task_Science').style.color = "red";
+        }
 
-        document.getElementById('task_Science').innerHTML = "SVÆRT FARLIG STÅRLINGSNIVÅ! MELD FRA TIL SIKKERHETSTEAMET. OPPDRAGET MÅ KANSKJE AVBRYTES.";
-        document.getElementById('task_Science').style.color = "red";
+}
+
+else
+    {
+        document.getElementById('task_Science').style.color = "orange";
+        document.getElementById('soundWrongScience').play();
+
     }
 }
 /**Gir ut riktig oppgave til forsknings teamet etter at de har ringt.*/
@@ -437,67 +556,84 @@ function task3(){
 }
 
 /**Sjekker respirasjonen*/
-function respiration(value){
+function respiration(value) {
+    if (document.getElementById('task_astro').innerHTML === "Regn ut og evaluer oksygenforbruket pr minutt i %. Gjennomsnittlig oksygenforbruk med 25 innpust er 0,5%. Hint:(antall innpust pr minutt / (25/0.5))") {
+
     respiratincheck = true;
     heartcheck = false;
     x = xmlDoc.getElementsByTagName("RESPIRATION");
     var elem = document.getElementById('o2Used');
-    if(parseFloat(contains(value)) < parseFloat(x[0].getElementsByTagName("VALUE")[0].innerHTML)){
+    if (parseFloat(contains(value)) < parseFloat(x[0].getElementsByTagName("VALUE")[0].innerHTML)) {
         document.getElementById('task_astro').style.color = "limegreen";
         elem.style.background = "limegreen";
         elem.value = value;
         document.getElementById('taskAstroSound').play();
-        setTimeout(function(){newTask('task_astro',"Start klokken og tell antall hjerteslag(spisse topper) det er i løpet av 10 sekunder.")}, 3000);
+        setTimeout(function () {
+            newTask('task_astro', "Start klokken og tell antall hjerteslag(spisse topper) det er i løpet av 10 sekunder.")
+        }, 3000);
     }
-    else{
+    else {
         elem.style.background = "indianred";
         document.getElementById('sound').play();
         elem.value = value;
         document.getElementById('task_astro').style.color = "red";
         document.getElementById('task_astro').innerHTML = "Kontakt sikkerhetsteamet!"
+    }
+}
+    else{
+        document.getElementById('task_astro').style.color = "orange";
+        document.getElementById('soundWrongAstro').play();
     }
 }
 /**Sjekker hjertefrekvensen*/
 function heartRate(value){
-    respiratincheck = false;
-    heartcheck = true;
-    var elem = document.getElementById('heart');
-    x = xmlDoc.getElementsByTagName("HEART");
-    if(parseFloat(contains(value)) < parseFloat(x[0].getElementsByTagName("VALUE")[0].innerHTML)){
-        document.getElementById('task_astro').style.color = "limegreen";
-        elem.style.background = "limegreen";
-        elem.value = value;
-        document.getElementById('taskAstroSound').play();
-        setTimeout(function(){newTask('task_astro',"Start klokken, og tell antall innpust (topper) på pustegrafen.")}, 3000);
-    }
-    else if(parseFloat(contains(value)) >= parseFloat(x[0].getElementsByTagName("VALUE")[0].innerHTML) && parseFloat(contains(value)) < parseFloat(x[0].getElementsByTagName("VALUE")[1].innerHTML)){
-        document.getElementById('task_astro').style.color = "limegreen";
-        document.getElementById('taskAstroSound').play();
-        elem.style.background = "orange";
-        elem.value = value;
-        setTimeout(function(){newTask('task_astro',"Start klokken, og tell antall innpust (topper) på pustegrafen.")}, 3000);
-    }
-    else {
+    if( document.getElementById('task_astro').innerHTML === "Regn ut antall hjerteslag astronauten vil ha i løpet av 60sek. Hint:(60/10 x antall hjerteslag)"){
 
-        elem.style.background = "indianred";
-        elem.value = value;
-        document.getElementById('sound').play();
-        document.getElementById('task_astro').style.color = "red";
-        document.getElementById('task_astro').innerHTML = "Kontakt sikkerhetsteamet!"
+        respiratincheck = false;
+        heartcheck = true;
+        var elem = document.getElementById('heart');
+        x = xmlDoc.getElementsByTagName("HEART");
+        if(parseFloat(contains(value)) < parseFloat(x[0].getElementsByTagName("VALUE")[0].innerHTML)){
+            document.getElementById('task_astro').style.color = "limegreen";
+            elem.style.background = "limegreen";
+            elem.value = value;
+            document.getElementById('taskAstroSound').play();
+            setTimeout(function(){newTask('task_astro',"Start klokken, og tell antall innpust (topper) på pustegrafen.")}, 3000);
+        }
+        else if(parseFloat(contains(value)) >= parseFloat(x[0].getElementsByTagName("VALUE")[0].innerHTML) && parseFloat(contains(value)) < parseFloat(x[0].getElementsByTagName("VALUE")[1].innerHTML)){
+            document.getElementById('task_astro').style.color = "limegreen";
+            document.getElementById('taskAstroSound').play();
+            elem.style.background = "orange";
+            elem.value = value;
+            setTimeout(function(){newTask('task_astro',"Start klokken, og tell antall innpust (topper) på pustegrafen.")}, 3000);
+        }
+        else {
+
+            elem.style.background = "indianred";
+            elem.value = value;
+            document.getElementById('sound').play();
+            document.getElementById('task_astro').style.color = "red";
+            document.getElementById('task_astro').innerHTML = "Kontakt sikkerhetsteamet!"
+        }
+       }
+        else{
+        document.getElementById("task_astro").style.color = "orange";
+        document.getElementById('soundWrongAstro').play();
+        }
+
     }
-}
-/**Setter Astronaut oppgaver etter at man har ringt.*/
-function setAstroTask(){
-    if(heartcheck){
-        document.getElementById('task_astro').style.color = "limegreen";
-        document.getElementById('taskAstroSound').play();
-        setTimeout(function(){newTask('task_astro',"Start klokken, og tell antall innpust (topper) på pustegrafen.")}, 3000);
-    }
-    else if(respiratincheck){
-        document.getElementById('task_astro').style.color = "limegreen";
-        document.getElementById('taskAstroSound').play();
-        setTimeout(function(){newTask('task_astro',"Start klokken og tell antall hjerteslag(spisse topper) det er i løpet av 10 sekunder.")}, 3000);
-    }
+    /**Setter Astronaut oppgaver etter at man har ringt.*/
+    function setAstroTask(){
+        if(heartcheck){
+            document.getElementById('task_astro').style.color = "limegreen";
+            document.getElementById('taskAstroSound').play();
+            setTimeout(function(){newTask('task_astro',"Start klokken, og tell antall innpust (topper) på pustegrafen.")}, 3000);
+        }
+        else if(respiratincheck){
+            document.getElementById('task_astro').style.color = "limegreen";
+            document.getElementById('taskAstroSound').play();
+            setTimeout(function(){newTask('task_astro',"Start klokken og tell antall hjerteslag(spisse topper) det er i løpet av 10 sekunder.")}, 3000);
+        }
 }
 var y = 0;
 /**Leser inn og setter noen ferdig definerte oksygen verdier*/
@@ -518,6 +654,7 @@ var satName = '';
 /**Holder orden på hvilken satelitt som er valgt*/
 function chooseSatelitt(sat) {
     document.getElementById('comms_task').style.color = "limegreen";
+    if(document.getElementById("comms_task").innerHTML ==="Velg den satelitten med best signal.") {
     if(sat === "sat1" ){
         frekvensOmraade = document.getElementById('satelitt1');
         satName = "Satelitt 1";
@@ -530,42 +667,61 @@ function chooseSatelitt(sat) {
         frekvensOmraade = document.getElementById('satelitt3');
         satName = "Satelitt 3";
     }
-    document.getElementById('taskCommsSound').play();
-    setTimeout(function(){newTask('comms_task',"Sett en frekvens for den valgte satelitten(Median av frekvensomårde).")}, 3000);
+        document.getElementById('taskCommsSound').play();
+        setTimeout(function () {
+            newTask('comms_task', "Sett en frekvens for den valgte satelitten(Midten av frekvensomårde).")
+        }, 3000);
+    }
+    else{
+        document.getElementById("comms_task").style.color = "orange";
+        document.getElementById('soundWrongComms').play();
+    }
 }
 /**Sjekker gyldigheten av det valgte frekvens område*/
 function satelitt(value){
     var frekvens = 0;
     var frekMin = 0;
     var frekMax = 0;
-
+try {
     frekMin = frekvensOmraade.innerHTML.charAt(0) + frekvensOmraade.innerHTML.charAt(1) + frekvensOmraade.innerHTML.charAt(2);
     frekMax = frekvensOmraade.innerHTML.charAt(6) + frekvensOmraade.innerHTML.charAt(7) + frekvensOmraade.innerHTML.charAt(8);
-    frekvens = Math.round(((parseFloat(frekMax) + parseFloat(frekMin))/2)*10)/10;
+    frekvens = Math.round(((parseFloat(frekMax) + parseFloat(frekMin)) / 2) * 10) / 10;
+}catch (err){
+    document.getElementById("comms_task").style.color = "red";
+}
+if(document.getElementById("comms_task").innerHTML === "Sett en frekvens for den valgte satelitten(Midten av frekvensomårde).") {
 
-
-    if(parseFloat(contains(value)) === frekvens){
+    if (parseFloat(contains(value)) === frekvens) {
         document.getElementById('comms_task').style.color = "limegreen";
         document.getElementById('frekvens').style.background = "limegreen";
-        document.getElementById('satLabel').innerHTML = 'Tilkoblet: '  + satName;
+        document.getElementById('satLabel').innerHTML = 'Tilkoblet: ' + satName;
         document.getElementById('taskCommsSound').play();
         document.getElementById('satLabel').style.color = "black";
-        setTimeout(function(){newTask('comms_task',"Velg den satelitten med best signal.")}, 3000);
+        setTimeout(function () {
+            newTask('comms_task', "Velg den satelitten med best signal.")
+        }, 3000);
     }
-    else if(parseFloat(contains(value)) >= frekMin && parseFloat(contains(value)) <= frekMax){
+    else if (parseFloat(contains(value)) >= frekMin && parseFloat(contains(value)) <= frekMax) {
         document.getElementById('comms_task').style.color = "limegreen";
         document.getElementById('frekvens').style.background = "orange";
         document.getElementById('satLabel').innerHTML = 'Tilkoblet: ' + satName;
         document.getElementById('taskCommsSound').play();
         document.getElementById('satLabel').style.color = "black";
-        setTimeout(function(){newTask('comms_task',"Velg den satelitten med best signal.")}, 3000);
+        setTimeout(function () {
+            newTask('comms_task', "Velg den satelitten med best signal.")
+        }, 3000);
     }
-    else{
+    else {
         document.getElementById('frekvens').style.background = "indianred";
         document.getElementById('satLabel').innerHTML = 'Kan ikke koble til';
         document.getElementById('satLabel').style.color = "red";
         document.getElementById('sound').play();
     }
+}
+    else{
+    document.getElementById("comms_task").style.color = "orange";
+    document.getElementById('soundWrongComms').play();
+}
 }
 /**Gir ut noen tilfeldige satelitt signaler*/
 function newSateliteValue(){

@@ -17,7 +17,7 @@
         <h2 class="headerText">Under en solstorm</h2>
         <h5 style="margin-top: -7px; margin-left: 50px; color: lightgray" >Forskningsteam, <mark style="color: #000000; background: #ffffff">Sikkerhetsteam,</mark> Astronautteam, Kommunikasjonsteam</h5>
         <h4>Mål: Sikkre at det er nok oksygen for å gjennomføre oppdraget, og at kommunikasjonsstatusen og
-        datakvaliteten er god</h4>
+        datakvaliteten er god.</h4>
     </div>
     <div class="line"></div>
     <div class="timer">
@@ -28,7 +28,7 @@
 </div>
 
 <script>
-    setInterval(function () { updateOksygenTank()}, 20000);
+    setInterval(function () { updateOksygenTank()}, 30000);
 </script>
 
 <!-- left half -->
@@ -74,7 +74,7 @@
             <label class="control-label">%Oksygen igjen</label>
             <br>
             <input id="oksygenIgjen" class="form-control" type="text" style="font-size: 16px; width: 75px;" value="100" onkeydown="if(event.keyCode == 13) document.getElementById('sendOxygenInfo').click()">
-            <button id="sendOxygenInfo" class="btn btn-primary"  type="button" style="margin-left: 5px; width: 70px" >Send</button>
+            <button id="sendOxygenInfo" class="btn btn-primary"  type="button" style="margin-left: 5px; width: 70px" onclick="send()">Send</button>
 
             <label class="control-label" style="margin-top: 20px">% Oksygen forbruk pr minutt</label>
             <br>
@@ -89,7 +89,7 @@
 
     <div class="col-md-8" style="margin-top:0px;">
         <form class="form-inline">
-            <img id="oksygentank" src="img/Oksygentank_65%25.png" style="width: 210px; height: 300px; margin-top: -30px; margin-left: 80px">
+            <img id="oksygentank" src="img/Oksygentank_100%25.png" style="width: 210px; height: 300px; margin-top: -30px; margin-left: 80px">
             <br>
         <h4 style="width: 110px;; margin-left: 150px; background:  rgba(255,255,255,0.6);">Oksygentank</h4>
 
@@ -112,7 +112,7 @@
     kommunikasjonsteamet og be om at skrubfilteret byttes.</p>
 </div>
 
-<script>setTimeout(function(){task2Security()},60000)</script>
+<script>setTimeout(function(){task2Security()},10000)</script>
 
 <!--Modal -->
 <div id="secModal" class="modal fade">
@@ -149,6 +149,10 @@
 </audio>
 <audio id="soundRed" onpause>
     <source src="Sound/135613__danielnieto7__alert.wav" type="audio/wav">
+    Your browser does not support the element.
+</audio>
+<audio id="soundWrongSec" onpause>
+    <source src="Sound/Buzzer%20button%20signal%20loop_BLASTWAVEFX_08949.wav" type="audio/wav">
     Your browser does not support the element.
 </audio>
 

@@ -144,7 +144,7 @@ function createText(val){
               }, 3000);
               setTimeout(function () {
                   task3()
-              }, 12000);
+              }, 30000);
           }
           else{
               document.getElementById('task_astro').style.color = "orange";
